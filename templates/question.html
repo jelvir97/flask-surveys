@@ -7,9 +7,13 @@
     <form action="/question/{{q_num}}" method="post">
         
     {% for choice in choices %}
-        <input type="radio" name="response" id="{{choice}}">
+        <input type="radio" name="response" id="{{choice}}" value="{{choice}}">
         <label for="{{choice}}">{{choice}}</label>
     {% endfor %}
     <button type="submit">Next</button>
     </form>
+
+    {% for msg in get_flashed_messages() %}
+    <p>{{ msg }}</p>
+    {% endfor %}
 {% endblock %}

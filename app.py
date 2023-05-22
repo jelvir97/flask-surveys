@@ -19,15 +19,23 @@ def home_page():
 
 @app.route('/question/<num>', methods=['GET','POST'])
 def question(num):
-    if request.method == 'GET': 
-        q = satisfaction_survey.questions[int(num)]
-        return render_template('question.html', question=q.question, choices=q.choices,q_num=num)
-    if request.method == 'POST':
-        num = int(num)
-        num +=1
-        if num >= len(satisfaction_survey.questions):
-            return redirect('/thankyou')
-        return redirect(f'/question/{num}')
+    if int(num) == len(responses):
+        if request.method == 'GET': 
+            q = satisfaction_survey.questions[int(num)]
+            return render_template('question.html', question=q.question, choices=q.choices,q_num=num)
+        if request.method == 'POST':
+            num = int(num)
+            num +=1
+            responses.append(request.form.get('response'))
+            for resp in responses:
+                print(resp)
+            if num >= len(satisfaction_survey.questions):
+                return redirect('/thankyou')
+            return redirect(f'/question/{num}')
+    else:
+        flash("You are trying to access an invalid question. Please complete questions in order.")
+        return redirect(f'/question/{len(responses)}')    
+    
     
 
 @app.route('/thankyou')

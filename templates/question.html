@@ -4,7 +4,7 @@
 
 {% block contents %}
     <h2>Q{{q_num}}. {{question}}</h2>
-    <form action="/question/{{q_num}}" method="post">
+    <form action="/{{surv}}/question/{{q_num}}" method="post">
         
     {% for choice in choices %}
         <input type="radio" name="response" id="{{choice}}" value="{{choice}}">

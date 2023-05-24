@@ -5,5 +5,10 @@
 {% block contents %}
     <h1>Thank You!</h1>
     <h2>Your input is important to us!</h2>
+
+    {% for q, a in questions_and_answers.items() %}
+        <p><b>{{q}} -</b> {{a}}</p>
+    {% endfor %}
+
     <a href="/"><button>Home</button></a>
 {% endblock %}

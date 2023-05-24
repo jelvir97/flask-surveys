@@ -3,7 +3,13 @@
 {% block title%}Home{% endblock %}
 
 {% block contents %}
-    <h1>{{survey_title}}</h1>
-    <h2>{{instructions}}</h2>
-    <a href="/question/0"><button>Start Survey</button></a>
+    {% for key, surv in surveys.items()%}
+    <h1>{{surv.title}}</h1>
+    <h2>{{surv.instructions}}</h2>
+    {% if session[key +'_response']%}
+    <form action="/thankyou/{{key}}"><button>View Answers</button></form>
+    {% else %}
+    <form action="/start_survey/{{key}}" method="post"><button>Start Survey</button></form>
+    {% endif %}
+    {% endfor %}
 {% endblock %}
